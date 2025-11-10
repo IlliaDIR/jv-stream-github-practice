@@ -21,7 +21,7 @@ public class StreamPractice {
                 .map(Integer::parseInt)
                 .filter(i -> i % TWO == ZERO)
                 .min(Integer::compare)
-                .orElseThrow(() -> new RuntimeException("Can't get min value from list:"
+                .orElseThrow(() -> new RuntimeException("Can't get min value from list: "
                         + numbers));
     }
 
@@ -32,7 +32,7 @@ public class StreamPractice {
                 .average()
                 .orElseThrow(() ->
                         new NoSuchElementException("No corresponding items "
-                                + "found in the list" + numbers));
+                                + "found in the list: " + numbers));
     }
 
     public List<Person> selectMenByAge(List<Person> peopleList, int fromAge, int toAge) {
@@ -42,16 +42,16 @@ public class StreamPractice {
                 .collect(Collectors.toList());
     }
 
-    public List<Person> getWorkablePeople(int fromAge, int femaleToAge,
-                                          int maleToAge, List<Person> peopleList) {
-        return peopleList.stream()
+    public List<Person> selectPeopleByAge(List<Person> people, int fromAge, int maleToAge,
+                                          int femaleToAge) {
+        return people.stream()
                 .filter(p -> p.getSex() == Person.Sex.WOMAN
                         ? p.getAge() >= fromAge && p.getAge() <= femaleToAge
                         : p.getAge() >= fromAge && p.getAge() <= maleToAge)
                 .toList();
     }
 
-    public List<String> getCatsNames(List<Person> peopleList, int femaleAge) {
+    public List<String> getCatNames(List<Person> peopleList, int femaleAge) {
         return peopleList.stream()
                 .filter(p -> p.getAge() >= femaleAge && p.getSex() == Person.Sex.WOMAN)
                 .map(Person::getCats)
@@ -60,7 +60,7 @@ public class StreamPractice {
                 .toList();
     }
 
-    public List<String> validateCandidates(List<Candidate> candidates) {
+    public List<String> getEligibleCandidates(List<Candidate> candidates) {
         return candidates.stream()
                 .filter(new CandidateValidator())
                 .map(Candidate::getName)

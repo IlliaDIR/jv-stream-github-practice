@@ -143,7 +143,7 @@ public class StreamPracticeTest {
     }
 
     @Test
-    public void getWorkablePeople_basicData() {
+    public void selectPeople_ByAge_basicData() {
         List<Person> expected = new ArrayList<>();
         expected.add(new Person("Peter", 23, Person.Sex.MAN));
         expected.add(new Person("Helen", 42, Person.Sex.WOMAN, new ArrayList<>()));
@@ -159,35 +159,35 @@ public class StreamPracticeTest {
         expected.add(new Person("Janice Dean", 18, Person.Sex.WOMAN, new ArrayList<>()));
         expected.add(new Person("Roman", 25, Person.Sex.MAN));
         expected.add(new Person("Carlos", 60, Person.Sex.MAN));
-        List<Person> result = solution.getWorkablePeople(18, 55, 60, peopleList);
+        List<Person> result = solution.selectPeopleByAge(peopleList, 18, 60, 55);
         Assert.assertEquals(expected, result);
     }
 
     @Test
-    public void getWorkablePeople_absent() {
+    public void selectPeople_ByAge_absent() {
         List<Person> expected = new ArrayList<>();
-        List<Person> result = solution.getWorkablePeople(12, 14, 15, peopleList);
+        List<Person> result = solution.selectPeopleByAge(peopleList, 12, 15, 14);
         Assert.assertEquals(expected, result);
     }
 
     @Test
     public void getCatsNames_basicDate() {
         List<String> expected = Arrays.asList("Tom", "Leo", "Sunny", "Kitty", "Fluffy", "Jackie");
-        List<String> result = solution.getCatsNames(peopleList, 18);
+        List<String> result = solution.getCatNames(peopleList, 18);
         Assert.assertEquals(expected, result);
     }
 
     @Test
     public void getCatsNames_emptyList() {
         List<String> expected = new ArrayList<>();
-        List<String> result = solution.getCatsNames(peopleListWithoutCat, 18);
+        List<String> result = solution.getCatNames(peopleListWithoutCat, 18);
         Assert.assertEquals(expected, result);
     }
 
     @Test
     public void getCatsNames_absent() {
         List<String> expected = new ArrayList<>();
-        List<String> result = solution.getCatsNames(peopleList, 60);
+        List<String> result = solution.getCatNames(peopleList, 60);
         Assert.assertEquals(expected, result);
     }
 
@@ -204,14 +204,14 @@ public class StreamPracticeTest {
     public void validateCandidates_basicData() {
         List<String> expected = List.of("Casey", "Morty", "Philip");
         Assert.assertEquals(String.format("Incorrect result list of names for the input - %s\n",
-                candidates), expected, solution.validateCandidates(candidates));
+                candidates), expected, solution.getEligibleCandidates(candidates));
     }
 
     @Test
     public void validateCandidates_invalidData() {
         List<String> expected = Collections.EMPTY_LIST;
         Assert.assertEquals(String.format("Incorrect result list of names for the input - %s\n",
-                invalidCandidates), expected, solution.validateCandidates(invalidCandidates));
+                invalidCandidates), expected, solution.getEligibleCandidates(invalidCandidates));
     }
 
     @Test
@@ -219,7 +219,7 @@ public class StreamPracticeTest {
         List<Candidate> emptyList = Collections.EMPTY_LIST;
         List<String> expected = Collections.EMPTY_LIST;
         Assert.assertEquals(String.format("Incorrect result list of names for the input - %s\n",
-                emptyList), expected, solution.validateCandidates(emptyList));
+                emptyList), expected, solution.getEligibleCandidates(emptyList));
     }
 
     private static List<Candidate> initInvalidCandidateList() {
